@@ -4,6 +4,8 @@ papu
 
 ## Devs:
 - Arturo Balboa :>
+- Evan Andre Santana
+- Anell Moreno
 
 ## Project 
 Todos los scripts del Python del curso se linux embebido lol
