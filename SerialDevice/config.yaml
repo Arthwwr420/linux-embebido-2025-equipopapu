@@ -1,0 +1,7 @@
+main_app:
+  title: "PapuApp 1.0.0"
+  width: 1200
+  height: 800
+  font: "Minecraft"
+  font_size: 20
+  font_color: "White"
