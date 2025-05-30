@@ -3,33 +3,33 @@ import time
 #3rd party libs
 import serial
 #Local Modules
+from serial_device import SerialDevice
 
-SERIAL_PORT = "/dev/ttyACM0"
+SERIAL_PORT = "ttyACM0"
 BAUDRATE = 9600
 
-serial_dev = serial.Serial(
+serial_dev = SerialDevice(
     port = SERIAL_PORT,
     baudrate = BAUDRATE
 )
 
 time.sleep(2)
-serial_dev.write(b"Connect")
-message = serial_dev.readline()
+message = serial_dev.send_msg("Connect")
+# message = serial_dev.readline()
 
 print(type(message))
-print(message.decode(encoding='utf-8'))
+print(message )
 
 while True: 
     try: 
         to_send = input('Mensaje a enviar: ')
-        serial_dev.write(to_send.encode())
-        time.sleep(1)
-        recieved = serial_dev.readline()
-        print(recieved.decode())
+        recieved = serial_dev.send_msg(to_send)
+        #recieved = serial_dev.readline()
+        print(recieved)
     except KeyboardInterrupt:
         break
 
-serial_dev.close()
+serial_dev.disconnect()
 print('Listo!')
 
 

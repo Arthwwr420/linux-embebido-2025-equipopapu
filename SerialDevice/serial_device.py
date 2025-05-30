@@ -17,29 +17,26 @@ class SerialDevice:
     def __init__ (self, port:str,baudrate:int):
         if baudrate not in BAUDRATES:
             raise ValueError(f"Not a Valid Baudrate!(baudrate)")
-        port = '/dev/' + port
         if port not in self.find_available_serial_ports():
             raise ValueError("Not a valid Port!{port}")
+
+        port = '/dev/' + port
 
         self.serial_device=serial.Serial(
                 port = port,
                 baudrate = baudrate
                 )
-        time.sleep(2)
+        time.sleep(0.01)
         self.serial_device.write(b'Connect')
-        time.sleep(1)
-        m = self.serial_device.readline()
-        print(m.decode())
-        m = self.serial_device.readline()
-        print(m.decode())
+        time.sleep(0.01)
 
     def send_msg(self, message:str)-> None:
-        self.serial_device(message.encode())
-        time.sleep(1)
+        self.serial_device.write(message.encode())
+        time.sleep(0.1)
         return self.read_msg()
 
     def read_msg(self) -> str:
-        return self.serial_device.readline().decode()
+        return self.serial_device.readline().decode(encoding='utf-8')
 
     def disconnect(self) ->None:
         self.serial_device.close()
